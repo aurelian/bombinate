@@ -30,7 +30,7 @@
 (defn fetch-starred-projects! []
   (ajax/GET "/starred-page-sample.json"
             {:handler (fn [data] (swap! app-state assoc :projects data))
-             :error-handler (fn [details] (.warn js/console (str "Failed to load shit: " details "!")))
+             :error-handler (fn [details] (.warn js/console (str "Failed to load data: " details "!")))
              :response-format :json
              :keywords? true }))
 
