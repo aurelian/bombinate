@@ -1,12 +1,11 @@
-# bombinate
+## bombinate
 
-The github star
+bom•bi•nate (bŏmˈbĭ-nātˌ)
+  v. To buzz; hum
 
-## Overview
+bombinate was word of the day on 7th of Dec on http://dictionary.reference.com
 
-bombinate was wotd on 7th of Dec on http://dictionary.reference.com
-
-## Setup
+### Setup
 
 To get an interactive development environment run:
 

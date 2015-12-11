@@ -8,7 +8,8 @@
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374"]
                  [cljs-ajax "0.5.2"]
-                 [reagent "0.5.1"]]
+                 [reagent "0.5.1"]
+                 [camel-snake-kebab "0.3.2"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
             [lein-figwheel "0.5.0-1"]]

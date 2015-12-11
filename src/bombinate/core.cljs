@@ -1,5 +1,7 @@
 (ns bombinate.core
   (:require [reagent.core :as r]
+            [camel-snake-kebab.core :refer [->kebab-case-keyword]]
+            [camel-snake-kebab.extras :refer [transform-keys]]
             [ajax.core :as ajax]))
 
 ;; curl -H "Accept: application/vnd.github.v3.star+json" https://api.github.com/users/aurelian/starred > resources/public/starred-page-sample.json
@@ -9,11 +11,12 @@
 ;; define your app data so that it doesn't get over-written on reload
 (def app-state (r/atom {:projects []}))
 
-(defn project-component [{:keys [repo] :as project}]
+(defn project-component [{:keys [starred-at repo] :as project}]
   [:li {:id (str "repo-" (:id repo))}
    [:div
-    [:a {:href (:html_url repo)} (:full_name repo)]
-    [:span (str " - " (:description repo))]]])
+    [:span (str starred-at "/ ")]
+    [:a {:href (:html-url repo)} (:full-name repo)]
+    [:span (str " [" (:language repo) "]=> " (:description repo))]]])
 
 (defn projects-component []
   [:div
@@ -27,16 +30,30 @@
   (r/render-component [projects-component]
                       (. js/document (getElementById "app"))))
 
-(defn fetch-starred-projects! []
-  (ajax/GET "/starred-page-sample.json"
-            {:handler (fn [data] (swap! app-state assoc :projects data))
+;;
+;; starred_at
+;; repo
+;;   id
+;;   name
+;;
+;; starred_at
+;; repo
+;;   id
+;;   name
+;;
+(defn ajax-handler [json-data]
+  (swap! app-state assoc :projects (transform-keys ->kebab-case-keyword json-data)))
+
+(defn fetch-starred-projects! [url]
+  (ajax/GET url
+            {:handler ajax-handler
              :error-handler (fn [details] (.warn js/console (str "Failed to load data: " details "!")))
              :response-format :json
              :keywords? true }))
 
 (defn init! []
   (println "[init] called")
-  (fetch-starred-projects!)
+  (fetch-starred-projects! "/starred-page-sample.json")
   (mount-components))
 
 (defn on-js-reload []
