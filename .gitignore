@@ -1,3 +1,4 @@
+.cljs_rhino_repl
 /resources/public/js/compiled/**
 figwheel_server.log
 pom.xml

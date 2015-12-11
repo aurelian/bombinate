@@ -30,10 +30,19 @@ To create a production build run:
     lein cljsbuild once min
 
 And open your browser in `resources/public/index.html`. You will not
-get live reloading, nor a REPL. 
+get live reloading, nor a REPL.
 
-## License
+To get a nREPL and start the interactive development:
 
-Copyright © 2014 FIXME
+    rlwrap lein repl
+
+    (start)
+    (cljs)
+    (in-ns 'bombinate.core)
+    ... do stuff
+
+### License
+
+Copyright © 2015 aurelian
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
