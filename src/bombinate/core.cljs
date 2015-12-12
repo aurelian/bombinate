@@ -7,42 +7,42 @@
 ;; curl -H "Accept: application/vnd.github.v3.star+json" https://api.github.com/users/aurelian/starred > resources/public/starred-page-sample.json
 
 (enable-console-print!)
+;; print helpers
+
+(defn lang [lang-group]
+  (let [i (key lang-group)]
+    (if (nil? i)
+      "N/A"
+      i)))
 
 ;; define your app data so that it doesn't get over-written on reload
 (def app-state (r/atom {:projects []}))
 
-(defn project-component [{:keys [starred-at repo] :as project}]
-  [:li {:id (str "repo-" (:id repo))}
+(defn project-component [project]
+  [:li {:id (:id project)}
    [:div
-    [:span (str starred-at "/ ")]
-    [:a {:href (:html-url repo)} (:full-name repo)]
-    [:span (str " [" (:language repo) "]=> " (:description repo))]]])
+    [:a {:href (:html-url project)} (:full-name project)]
+    [:span (str " " (:description project))]]])
 
 (defn projects-component []
-  [:div
-   [:h1 "Projects"]
-   [:div
-    [:ul
-     (for [project (:projects @app-state)]
-       ^{:key (:id (:repo project))} [project-component project])]]])
+  [:div [:h2 "Projects"]
+   [:div [:ul
+     (for [lang-group (:projects @app-state)]
+       ^{:key (lang lang-group)} [:li [:div
+                                  [:h3 (lang lang-group)]
+                                  [:ul
+                                   (for [project (val lang-group)]
+                                    ^{:key (:id project)} [project-component project])]]])]]])
 
 (defn mount-components []
   (r/render-component [projects-component]
                       (. js/document (getElementById "app"))))
 
-;;
-;; starred_at
-;; repo
-;;   id
-;;   name
-;;
-;; starred_at
-;; repo
-;;   id
-;;   name
-;;
 (defn ajax-handler [json-data]
-  (swap! app-state assoc :projects (transform-keys ->kebab-case-keyword json-data)))
+  (swap! app-state assoc :projects
+    (group-by :language
+      (map #(conj {:starred-at (:starred-at %1)} (select-keys (:repo %1) [:id :name :full-name :html-url :description :stargazers-count :homepage :language :created-at :updated-at :pushed-at]))
+            (transform-keys ->kebab-case-keyword json-data)))))
 
 (defn fetch-starred-projects! [url]
   (ajax/GET url
@@ -57,9 +57,6 @@
   (mount-components))
 
 (defn on-js-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
   (init!)
 )
 
