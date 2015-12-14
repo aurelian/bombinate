@@ -7,13 +7,26 @@
 ;; curl -H "Accept: application/vnd.github.v3.star+json" https://api.github.com/users/aurelian/starred > resources/public/starred-page-sample.json
 
 (enable-console-print!)
-;; print helpers
 
+;; Utilities
 (defn lang [lang-group]
   (let [i (key lang-group)]
     (if (nil? i)
       "N/A"
       i)))
+
+(def repo-keys
+  [:id
+   :name
+   :full-name
+   :html-url
+   :description
+   :stargazers-count
+   :homepage
+   :language
+   :created-at
+   :updated-at
+   :pushed-at])
 
 ;; define your app data so that it doesn't get over-written on reload
 (def app-state (r/atom {:projects []}))
@@ -41,7 +54,7 @@
 (defn ajax-handler [json-data]
   (swap! app-state assoc :projects
     (group-by :language
-      (map #(conj {:starred-at (:starred-at %1)} (select-keys (:repo %1) [:id :name :full-name :html-url :description :stargazers-count :homepage :language :created-at :updated-at :pushed-at]))
+      (map #(conj {:starred-at (:starred-at %1)} (select-keys (:repo %1) repo-keys))
             (transform-keys ->kebab-case-keyword json-data)))))
 
 (defn fetch-starred-projects! [url]
