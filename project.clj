@@ -9,9 +9,11 @@
                  [org.clojure/core.async "0.2.374"]
                  [cljs-ajax "0.5.2"]
                  [reagent "0.5.1"]
+                 [garden "1.3.0"]
                  [camel-snake-kebab "0.3.2"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
+            [lein-garden "0.2.6"]
             [lein-figwheel "0.5.0-1"]]
 
   :profiles {:dev {:dependencies [[com.cemerick/piggieback "0.2.1"]
@@ -22,7 +24,20 @@
 
   :source-paths ["src"]
 
-  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
+  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"
+                                    "resources/public/css/style.css"]
+
+	:garden {:builds [{;; Optional name of the build:
+                     :id "dev"
+                     ;; Source paths where the stylesheet source code is
+                     :source-paths ["src/bombinate/styles"]
+                     ;; The var containing your stylesheet:
+                     :stylesheet bombinate.styles.app/screen
+                     ;; Compiler flags passed to `garden.core/css`:
+                     :compiler {;; Where to save the file:
+                                :output-to "resources/public/css/style.css"
+                                ;; Compress the output?
+                                :pretty-print? false}}]}
 
   :cljsbuild {:builds
               [{:id "dev"
