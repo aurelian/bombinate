@@ -5,6 +5,10 @@ bom•bi•nate (bŏmˈbĭ-nātˌ)
 
 bombinate was word of the day on 7th of Dec on http://dictionary.reference.com
 
+This project is a playground where I attempt to improve my skills with Clojure/ClojureScript using experimental learing.
+
+I'll try to keep some [notes](/notes) on the process.
+
 ### Setup
 
 To get an interactive development environment run:
