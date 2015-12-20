@@ -1,8 +1,8 @@
 ### Initial Commit
 
-I have a history on doing this type of experiments, where I take a programming language/framework and attempt to learn by doing. For example a year ago I did a similar concept with [swift](https://swift.org/) called [Guante](https://github.com/aurelian/guante), before that I sharpen my Objective-C knowledge with [DogeCom](https://github.com/aurelian/DogeCom) and before that...
+I have a history on doing this type of experiments, where I take a programming language/framework and attempt to learn by doing. For example a year ago I did a similar concept with [swift](https://swift.org/) called [Guante](https://github.com/aurelian/guante), before some Objective-C knowledge with [DogeCom](https://github.com/aurelian/DogeCom) and before that...
 
-"bombinate"'s idea is to fetch starred projects from [Github](https://developer.github.com/v3/activity/starring/) and then ...do something with them, like grouping by various conditions, "background" fetching the data and other stupid things that I can't think of right now because I'm just an [advanced beginner](https://en.wikipedia.org/wiki/Dreyfus_model_of_skill_acquisition). Would be nice to have this deployed somewhere at some point.
+bombinate's idea is to fetch starred projects from [Github](https://developer.github.com/v3/activity/starring/) and then ...do something with them, like grouping by various conditions, fetch the data from the API in "background" and other stupid things that I can't think of right now because I'm just an [advanced beginner](https://en.wikipedia.org/wiki/Dreyfus_model_of_skill_acquisition). Would be nice to have this deployed somewhere at some point.
 
 #### Tools
 
