@@ -3,7 +3,7 @@
             [figwheel-sidecar.system :as sys]
             [figwheel-sidecar.components.file-system-watcher :as fsw]
             [com.stuartsierra.component :as component]
-;;            [garden.core :refer [css]]
+            [garden.core :refer [css]]
             [clojure.pprint :refer [pprint]]
   ))
 
@@ -12,14 +12,18 @@
   (pprint (config/get-project-config)))
 
 (defn garden-config []
-  (first (:builds (:garden (config/get-project-config)))))
+  (:builds (:garden (config/get-project-config))))
+
+(defn garden-watch-paths []
+  ((comp vec distinct mapcat) :source-paths (garden-config)))
+
+(defn compile-build [{:keys [id compiler stylesheet]}]
+  (println (str "--> building " id "."))
+  (css compiler (eval stylesheet)))
 
 (defn garden-watcher [watcher files]
-  (pprint (first files))
-  (pprint (slurp (first files)))
-  ;; TODO -- file to be eval-in-project
-;;  (css (:compiler (garden-config)) (slurp (first files)))
-)
+  ;; this doesn't actually do anything with changed files
+  (map #(compile-build %1) (garden-config)))
 
 (def system
   (atom
@@ -29,7 +33,7 @@
       :garden-watcher (fsw/file-system-watcher
          {:watcher-name "Garden"
           :notification-handler garden-watcher
-          :watch-paths (:source-paths (garden-config))}))))
+          :watch-paths (garden-watch-paths)}))))
 
 (defn start []
   (println "Starting.")
