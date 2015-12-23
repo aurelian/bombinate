@@ -22,8 +22,10 @@
   (css compiler (eval stylesheet)))
 
 (defn garden-watcher [watcher files]
-  ;; this doesn't actually do anything with changed files
-  (map #(compile-build %1) (garden-config)))
+  ;; this doesn't actually do anything with the changed files,
+  ;; but a notification that I need to tell garden to compile all the things.
+  (doseq [build (garden-config)]
+    (compile-build build)))
 
 (def system
   (atom
