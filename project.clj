@@ -10,7 +10,6 @@
                  [cljs-ajax "0.5.2"]
                  [reagent "0.5.1"]
                  [garden "1.3.0"]
-                 [facjure/mesh "0.4.0"]
                  [camel-snake-kebab "0.3.2"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]

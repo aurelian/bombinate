@@ -4,8 +4,7 @@
             [figwheel-sidecar.components.file-system-watcher :as fsw]
             [com.stuartsierra.component :as component]
             [garden.core :refer [css]]
-            [clojure.pprint :refer [pprint]]
-  ))
+            [clojure.pprint :refer [pprint]]))
 
 (defn hello-world []
   (println "Hello figwheel world. Project config is:")

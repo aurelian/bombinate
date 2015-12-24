@@ -32,20 +32,22 @@
 (def app-state (r/atom {:projects []}))
 
 (defn project-component [project]
-  [:div {:id (:id project) :class "unit whole"}
+  [:div {:class "col s4" :id (:id project)}
     [:a {:href (:html-url project)} (:full-name project)]
     [:span (str " " (:description project))]])
 
 (defn projects-component []
-  [:div [:h2 "Projects"]
-   [:div
+  [:div {:class "container"}
+   [:h3 "Projects"]
+   [:div {:class "row"}
      (for [lang-group (:projects @app-state)]
-       ^{:key (lang lang-group)} [:div {:class "grid"}
-                                  [:h3 (lang lang-group)]
-                                  [:div {:class "unit"}
-                                   (for [project (val lang-group)]
-                                    ^{:key (:id project)} [project-component project])]]
-       )]])
+       ^{:key (lang lang-group)} [:div {:class "col s12"}
+                                  [:h4 (lang lang-group)]
+                                  (map (fn[projects-group]
+                                         [:div {:class "row"}
+                                          (for [project projects-group]
+                                            ^{:key (:id project)} [project-component project])])
+                                       (partition 3 3 [] (val lang-group)))])]])
 
 (defn mount-components []
   (r/render-component [projects-component]
