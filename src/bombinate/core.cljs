@@ -33,8 +33,11 @@
 
 (defn project-component [project]
   [:div {:class "col s4" :id (:id project)}
-    [:a {:href (:html-url project)} (:full-name project)]
-    [:span (str " " (:description project))]])
+   [:div {:class "card light-green lighten-5"}
+    [:div {:class "card-content grey-text text-darken-4"}
+     [:span {:class "card-title"} [:a {:href (:html-url project)} (:full-name project)]]
+     [:p (str " " (:description project))]]
+    [:div {:class "card-action"} "Hello"]]])
 
 (defn projects-component []
   [:div {:class "container"}
