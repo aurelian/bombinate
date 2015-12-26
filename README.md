@@ -7,7 +7,17 @@ bombinate was word of the day on 7th of Dec on http://dictionary.reference.com
 
 This project is a playground where I attempt to improve my skills with Clojure/ClojureScript using experimental learing.
 
-I'll try to keep some [notes](/notes) on the process.
+There are some [notes](/notes) on the process.
+
+### Stuff to be done (updated 26.Dec 2015)
+
+ * note about vim
+ * write short note about garden / figwheel integration
+ * compile .md notes to resources/public/notes/.html
+ * deploy somewhere (gh-pages?)
+ * [secretary](https://github.com/gf3/secretary) or other routing lib to get some routes going
+ * [github](https://developer.github.com/v3/oauth/) oauth to log me in
+ * fetch all stars from the api grouped by language
 
 ### Setup
 
@@ -35,7 +45,7 @@ To create a production build run:
 And open your browser in `resources/public/index.html`. You will not
 get live reloading, nor a REPL.
 
-To get a nREPL and start the interactive development:
+To get a nREPL *and* start the interactive development:
 
     rlwrap lein repl
 
@@ -43,6 +53,13 @@ To get a nREPL and start the interactive development:
     (cljs)
     (in-ns 'bombinate.core)
     ... do stuff
+
+Start Garden auto watch and figwheel inside nREPL:
+
+    rlwrap lein repl
+
+    (require '[playground :as p] :reload)
+    (p/start)
 
 ### License
 
