@@ -7,9 +7,12 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374"]
-                 [cljs-ajax "0.5.2"]
                  [reagent "0.5.1"]
+                 [reagent-utils "0.1.7"]
+                 [bidi "1.25.0"]
+                 [kibu/pushy "0.3.6"]
                  [garden "1.3.0"]
+                 [cljs-ajax "0.5.2"]
                  [camel-snake-kebab "0.3.2"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
@@ -41,7 +44,7 @@
 
   :cljsbuild {:builds
               [{:id "dev"
-                :source-paths ["src"]
+                :source-paths ["src/cljs"]
 
                 :figwheel {:on-jsload "bombinate.core/on-js-reload"}
 
@@ -54,7 +57,7 @@
                ;; production. You can build this with:
                ;; lein cljsbuild once min
                {:id "min"
-                :source-paths ["src"]
+                :source-paths ["src/cljs"]
                 :compiler {:output-to "resources/public/js/compiled/bombinate.js"
                            :main bombinate.core
                            :optimizations :whitespace
