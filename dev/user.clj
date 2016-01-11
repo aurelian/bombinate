@@ -1,10 +1,13 @@
 (ns user
   (:require [figwheel-sidecar.config :as config]
             [figwheel-sidecar.system :as sys]
+;;            [figwheel-sidecar.repl-api :as ra]
             [figwheel-sidecar.components.file-system-watcher :as fsw]
             [com.stuartsierra.component :as component]
             [garden.core :refer [css]]
             [clojure.pprint :refer [pprint]]))
+
+;; TODO: maybe push garden-watcher to figwheel-sidecar.repl-api/*repl-api-system*
 
 (defn hello-world []
   (println "Hello figwheel world. Project config is:")

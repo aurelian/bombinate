@@ -1,5 +1,6 @@
 (ns bombinate.core
   (:require [reagent.core :as r]
+            [bombinate.authentication :as auth]
             [camel-snake-kebab.core :refer [->kebab-case-keyword]]
             [camel-snake-kebab.extras :refer [transform-keys]]
             [ajax.core :as ajax]))
@@ -71,10 +72,10 @@
 
 (defn init! []
   (println "[init] called")
+  (auth/update-user!)
   (fetch-starred-projects! "/starred-page-sample.json")
   (mount-components))
 
 (defn on-js-reload []
-  (init!)
-)
+  (init!))
 

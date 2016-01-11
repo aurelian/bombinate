@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
+                 [ring/ring-core "1.4.0"]
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374"]
                  [reagent "0.5.1"]
@@ -16,6 +17,7 @@
                  [camel-snake-kebab "0.3.2"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
+            [lein-ring "0.9.7"]
             [lein-garden "0.2.6"]
             [lein-figwheel "0.5.0-1"]]
 
@@ -25,7 +27,7 @@
                    :source-paths ["src", "dev"]
                    :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
 
-  :source-paths ["src"]
+  :source-paths ["src/clj", "src/cljs"]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"
                                     "resources/public/css/style.css"]
@@ -41,6 +43,13 @@
                                 :output-to "resources/public/css/style.css"
                                 ;; Compress the output?
                                 :pretty-print? false}}]}
+
+  :ring {:handler bombinate.handler/app
+         :uberwar-name "bombinate.war"}
+
+  :uberjar-name "bombinate.jar"
+
+  :main bombinate.server
 
   :cljsbuild {:builds
               [{:id "dev"
@@ -76,7 +85,7 @@
              ;; if you want to embed a ring handler into the figwheel http-kit
              ;; server, this is for simple ring servers, if this
              ;; doesn't work for you just run your own server :)
-             ;; :ring-handler hello_world.server/handler
+             :ring-handler bombinate.handler/app
 
              ;; To be able to open files in your editor from the heads up display
              ;; you will need to put a script on your path.
