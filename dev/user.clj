@@ -35,9 +35,9 @@
       :figwheel-system (sys/figwheel-system (sys/fetch-config))
       :css-watcher (sys/css-watcher {:watch-paths ["resources/public/css"]})
       :garden-watcher (fsw/file-system-watcher
-         {:watcher-name "Garden"
-          :notification-handler garden-watcher
-          :watch-paths (garden-watch-paths)}))))
+                       {:watcher-name "Garden"
+                        :notification-handler garden-watcher
+                        :watch-paths (garden-watch-paths)}))))
 
 (defn start []
   (println "Starting.")
@@ -50,9 +50,8 @@
 (defn cljs-two []
   (println "Starting cljs-two repl. Make sure system is running.")
   (when @system)
-    (sys/cljs-repl (:figwheel-system @system) "dev"))
+  (sys/cljs-repl (:figwheel-system @system) "dev"))
 
 (defn cljs []
   (println "Starting cljs repl. Make sure system is running.")
   (sys/cljs-repl (:figwheel-system @system) "dev"))
-

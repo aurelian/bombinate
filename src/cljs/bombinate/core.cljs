@@ -68,7 +68,7 @@
             {:handler ajax-handler
              :error-handler (fn [details] (.warn js/console (str "Failed to load data: " details "!")))
              :response-format :json
-             :keywords? true }))
+             :keywords? true}))
 
 (defn init! []
   (println "[init] called")
@@ -78,4 +78,3 @@
 
 (defn on-js-reload []
   (init!))
-
