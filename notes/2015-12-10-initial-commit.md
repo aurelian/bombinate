@@ -10,11 +10,18 @@ On the frontend, the development will be powered by [figwheel](https://github.co
 
 Two interesting presentations from Clojure / West 2015.
 
-Bruce Hauman about Developing ClojureScript with Figwheel:
+Bruce Hauman demonstrates main features of Figwheel developing ClojureScript applications:
 
 [![Bruce Hauman - Developing ClojureScript With Figwheel](http://img.youtube.com/vi/j-kj2qwJa_E/0.jpg)](https://www.youtube.com/watch?v=j-kj2qwJa_E "Bruce Hauman - Developing ClojureScript With Figwheel")
 
-And this one goes over ReactJS landscape (April 2015) for ClojureScript:
+And BTW this guy lives in a literal bubble (8:00-10:00). Another cool part of the talk is broadcasting the code to various connected devices (21:00), this slides into another demo of the favicon changing its color on a test build. Very nice.
+
+This other talk here goes over ReactJS landscape (as of April 2015) for ClojureScript:
 
 [![Luke VanderHart - The ReactJS Landscape](http://img.youtube.com/vi/oRmj3IUkRVk/0.jpg)](https://www.youtube.com/watch?v=oRmj3IUkRVk "Luke VanderHart - The ReactJS Landscape")
 
+It basically helps you to decide which library to use going over the features of Om (15:00), Reagent (22:30) or Quiescent (30:00).
+
+A major difference between those libraries is the way the application (or individual component) state is managed in each. _Om_ has cursors which arbitrate application state. _Reagent_ uses reagent atoms (custom atom type) and basically nothing stops you to have an atom per component if that's what you want. Dereferencing an atom in a component will create a reactive bound between them. _Quiescent_ on the other hand doesn't have component state and it just turns your data into components (no step of transforming the state into data as in Reagent or Om). NO STATE FOR YOU. It works on values and it doesn't care how you got them or what do you use to handle them.
+
+The other difference is how you render your components and here _Quiescent_ takes again a different approach and lets you handle the application render process.
