@@ -3,7 +3,7 @@
   :resource-paths #{"resources/public"}
   :dependencies '[[org.clojure/clojure "1.7.0"]
                   [org.clojure/clojurescript "1.7.170"]
-                  ;; ? [org.clojure/core.async "0.2.374"]
+                  [org.clojure/core.async "0.2.374"]
                   [reagent "0.5.1"]
                   [reagent-utils "0.1.7"]
                   [bidi "1.25.0"]
@@ -12,6 +12,7 @@
                   [cljs-ajax "0.5.2"]
                   [camel-snake-kebab "0.3.2"]
                   [adzerk/boot-cljs "1.7.170-3"]
+                  [weasel "0.7.0" :scope "test"]
                   [pandeiro/boot-http "0.7.0"]
                   [ring-logger "0.7.5"]
                   [ring/ring-defaults "0.1.5"]
@@ -30,7 +31,7 @@
   "Launch Immediate Feedback Development Environment"
   []
   (comp
-    (serve :handler 'bombinate.remotes/app
+    (serve :handler 'bombinate.handler/app
            :resource-root "target"
            :reload true)
     (watch)
