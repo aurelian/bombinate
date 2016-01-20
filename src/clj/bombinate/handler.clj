@@ -1,27 +1,16 @@
 (ns bombinate.handler
   (:require [bidi.ring :as br]
             [ring.logger :as logger]
-            [ring.util.response :as res]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]))
 
-(defn index-handler [request]
-  (res/resource-response "index.html"))
-
-(defn article-handler [{:keys [route-params]}]
-  (res/response (str "You are viewing article: " (:id route-params))))
-
-(def app-handler
-  (br/make-handler
-    [
-      "/"
-                 {"index.html" index-handler
-                  ["articles/" :id ".html"] article-handler}
-      (br/resources {:prefix "public"})
-     ]
-
-                ))
+(def routes
+  ["/"  [[""   (br/redirect "/index.html")]
+         [""   (br/resources-maybe {:prefix ""})]
+         [true (fn [req] {:status  404
+                          :headers {"Content-Type" "text/plain; charset=UTF-8"}
+                          :body    "Not to be Found"})]]])
 
 (def app
-  (-> app-handler
-    (logger/wrap-with-logger)
-    (wrap-defaults api-defaults)))
+  (-> (br/make-handler routes)
+      (logger/wrap-with-logger)
+      (wrap-defaults api-defaults)))
