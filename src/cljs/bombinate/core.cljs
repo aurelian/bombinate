@@ -30,7 +30,10 @@
    :pushed-at])
 
 ;; define your app data so that it doesn't get over-written on reload
-(def app-state (r/atom {:projects []}))
+(def app-state (r/atom {:projects [] :current-user nil}))
+
+(defn user-component []
+  [:p "Hello Dear User"])
 
 (defn project-component [project]
   [:div {:class "col s4" :id (:id project)}
@@ -42,7 +45,12 @@
 
 (defn projects-component []
   [:div {:class "container"}
-   [:h3 "Projects"]
+   [:div {:class "row"}
+    [:div {:class "col s9"}
+    [:h3 "Projects"]]
+    [:div {:class "col s3"}
+     [user-component]]]
+
    [:div {:class "row"}
      (for [lang-group (:projects @app-state)]
        ^{:key (lang lang-group)} [:div {:class "col s12"}
