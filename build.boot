@@ -35,7 +35,7 @@
            :resource-root "target"
            :reload true)
     (watch)
-    (reload)
+    (reload :on-jsload 'bombinate.core/on-js-reload)
     (cljs-repl) ;; before cljs task
     (cljs)
     (target :dir #{"target"})))
