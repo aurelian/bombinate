@@ -11,13 +11,24 @@ There are some [notes](/notes) on the process.
 
 ### Stuff to be done (updated 20.Jan 2016)
 
+ * implement [workflow](#workflow)
  * note about vim
  * write short note about garden / figwheel integration
  * [github](https://developer.github.com/v3/oauth/) oauth to log me in
- * fetch all stars from the api grouped by language
  * deploy to heroku (alternatives?)
  * note about lein/boot
  * compile .md notes to resources/public/notes/.html
+
+### Workflow
+
+ 1. user goes to home page.
+ 2. show not authenticated message and option to click to redirect to github oauth.
+ 3. performs authentication on github.
+ 4. redirect to app.
+ 5. fetch stars.
+ 6. ?!?
+ 7. Rapture / Profit $$$
+ 8. logout.
 
 ### Setup
 
@@ -32,7 +43,6 @@ In another terminal, connect to repl:
 ```
 boot repl -c
 ```
-
 
 ### License
 
